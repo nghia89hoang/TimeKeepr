@@ -1,0 +1,17 @@
+{
+  "name": "skype_sheet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.8.4",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0",
+    "restify": "^4.3.0"
+  }
+}
