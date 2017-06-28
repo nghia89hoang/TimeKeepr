@@ -3,3 +3,5 @@ logs
 
 #Dependency
 node_modules/
+#
+client_secret.json
