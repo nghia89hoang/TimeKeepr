@@ -118,20 +118,48 @@ var GoogleSheet = {
     setCurrentSheet: function(newSheetId) {
         this.currentSheetId = newSheetId
     },
-    appendArrData: function(dataArr, range) {
+    appendArrData: function(range, dataArr, options, callback) {
         var sheets = google.sheets('v4');
-        sheets.spreadsheets.values.update({
+        sheets.spreadsheets.values.append({
             auth: this.oauth2Client,
             spreadsheetId: this.currentSheetId,
             range: range,
-            valueInputOption: 'USER_ENTERED',
+            valueInputOption: options.valueInputOption || 'USER_ENTERED',
+            insertDataOption: options.insertDataOption || 'INSERT_ROWS',
             resource: {
                 majorDimension: 'ROWS',
                 values:[dataArr]
             }
         }, (err, resp)=> {
+            if(callback) {
+                return callback(err, resp)
+            }
             if(err) {
-                console.log('Data error:', err)
+                console.log('Sheet error:', err)
+                throw err
+            }
+        })
+    },
+// {
+//   "range": string,
+//   "majorDimension": enum(Dimension),
+//   "values": [
+//     array
+//   ],
+// }
+    getData: function(range, options, callback) {
+        var sheets = google.sheets('v4')
+        sheets.spreadsheets.values.get({
+            auth: this.oauth2Client,
+            spreadsheetId:this.currentSheetId,
+            range: range
+        }, (err, resp) => {
+            if(callback) {
+                return callback(err, resp)
+            }
+            if(err) {
+                console.log('Sheet Error: ', err)
+                throw err
             }
         })
     }

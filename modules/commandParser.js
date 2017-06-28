@@ -1,4 +1,3 @@
-const gCheckInOutRegex = /#(in|out){1} ?(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))?/i
 let CommandInf = {
     error: {
         code: 0,
@@ -11,8 +10,9 @@ let CommandInf = {
     hh: '',
     mm: ''
 }
+const gCheckInOutRegex = /#(in|out){1} ?(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))?/i
 
-module.exports = function processCommand(session) {
+module.exports = function parseCommand(session) {
     let cmdArr
     var cmd = Object.create(CommandInf)
     let msg = session.message.text
@@ -20,7 +20,7 @@ module.exports = function processCommand(session) {
     cmdArr = msg.match(gCheckInOutRegex)
     // if(gCheckInOutRegex.test(msg)) {
     
-    console.log(`Arr: ${cmdArr}`)
+    // console.log(`Arr: ${cmdArr}`)
     if(cmdArr && cmdArr.length > 0) {
         if(cmdArr[2] && cmdArr[2] != ''){
             // session.send(`${session.message.timestamp}:${session.message.user.name}:[${cmdArr[1]}:${cmdArr[2]}:${cmdArr[3]}]`)            
