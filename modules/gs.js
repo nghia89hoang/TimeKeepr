@@ -124,8 +124,8 @@ var GoogleSheet = {
             auth: this.oauth2Client,
             spreadsheetId: this.currentSheetId,
             range: range,
-            valueInputOption: options.valueInputOption || 'USER_ENTERED',
-            insertDataOption: options.insertDataOption || 'INSERT_ROWS',
+            valueInputOption: (options && options.valueInputOption) || 'USER_ENTERED',
+            insertDataOption: (options && options.insertDataOption) || 'INSERT_ROWS',
             resource: {
                 majorDimension: 'ROWS',
                 values:[dataArr]

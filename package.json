@@ -13,6 +13,7 @@
     "botbuilder": "^3.8.4",
     "google-auth-library": "^0.10.0",
     "googleapis": "^19.0.0",
+    "level": "^1.7.0",
     "redis": "^2.7.1",
     "restify": "^4.3.0"
   },
