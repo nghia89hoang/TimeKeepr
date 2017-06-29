@@ -13,7 +13,7 @@ const gTimePattern = /([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])/i
 const gCheckInOutPattern = /(in|out)/i
 const gCommandPattern = /^#(\w+){1} +([\S ]+)/i
 
-module.exports = function parseCommand(session) {
+module.exports = function parseCommand(session, next) {
     let cmdArr
     var cmd = Object.create(CommandInf)
     let msg = session.message.text
@@ -33,5 +33,13 @@ module.exports = function parseCommand(session) {
         cmd.error.code = -1;
         cmd.error.msg = 'Not a command'
     }
-    return cmd
+    if(cmd.error.code == 0) {
+        session.userData.cmd = cmd
+        return next()
+    } else if(cmd.error.code > 0) {
+        session.send(`.${cmd.error.msg}`)
+    } else {
+        console.log(`Normal chat: ${session.message.text}`)
+    }
+    session.userData.cmd = null
 }
