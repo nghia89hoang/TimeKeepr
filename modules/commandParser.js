@@ -9,9 +9,9 @@ let CommandInf = {
     action: '', // in or out
     param: ''
 }
-const gTimePattern = /([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])/i
 const gCheckInOutPattern = /(in|out)/i
-const gCommandPattern = /^#(\w+){1} +([\S ]+)/i
+// const gCommandPattern = /^#(\w+){1} +([\S ]+)+$/i
+const gCommandPattern = /^#(\w+){1}(?:\s*)([\S\s]*)/i
 
 module.exports = function parseCommand(session, next) {
     let cmdArr
@@ -20,7 +20,7 @@ module.exports = function parseCommand(session, next) {
     // cmdArr = gCheckInOutRegex.exec(msg)
     cmdArr = msg.match(gCommandPattern)
     // if(gCheckInOutRegex.test(msg)) {
-    console.log(`Arr: ${cmdArr}`)
+    console.log(`"${msg}" Arr: ${cmdArr}`)
     if(cmdArr && cmdArr.length > 0) {
         // session.send(`${session.message.timestamp}:${session.message.user.name}:[${cmdArr[1]}:${cmdArr[2]}:${cmdArr[3]}]`)            
         cmd.error.code = 0

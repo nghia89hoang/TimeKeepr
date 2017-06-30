@@ -1,4 +1,4 @@
-const env = require('./env')
+const env = require('./config/env')
 const restify = require('restify')
 const builder = require('botbuilder')
 const gs = require('./modules/gs')
@@ -19,5 +19,6 @@ var connector = new builder.ChatConnector({
     appId: env.MICROSOFT_APP_ID,
     appPassword: env.MICROSOFT_APP_PASSWORD
 })
+
 server.post('/api/messages', connector.listen())
 const bot = Bot(connector, {gs})

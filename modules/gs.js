@@ -10,48 +10,6 @@ const TOKEN_DIR = (process.env.HOME ||
                     process.env.USERPROFILE) + '/.credentials/'
 const TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json'
 
-/**
- * Get and store new token after prompting for user authorization, and then
- * execute the given callback with the authorized OAuth2 client.
- *
- * @param {google.auth.OAuth2} oauth2Client The OAuth2 client to get token for.
- * @param {getEventsCallback} callback The callback to call with the authorized
- *     client.
- */
-
-/**
- * Store token to disk be used in later program executions.
- *
- * @param {Object} token The token to store to disk.
- */
-
-
-function listMajors(auth) {
-  var sheets = google.sheets('v4');
-  sheets.spreadsheets.values.get({
-    auth: auth,
-    // '1srJf69S1i7PlpoAUlHnlI76DWISNPyx3mLAKemiooMc'
-    // '1BsxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-    spreadsheetId: '1srJf69S1i7PlpoAUlHnlI76DWISNPyx3mLAKemiooMc',
-    range: 'Sheet1!A3',
-  }, function(err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return;
-    }
-    var rows = response.values;
-    if (rows.length == 0) {
-      console.log('No data found.');
-    } else {
-      console.log('Return data:');
-      for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        console.log('%s', row[0]);
-      }
-    }
-  });
-}
-
 var GoogleSheet = {
     oauth2Client: {},
     defaultSheet: {},
@@ -147,7 +105,7 @@ var GoogleSheet = {
 //     array
 //   ],
 // }
-    getData: function(range, options, callback) {
+    getData: function(range, callback) {
         var sheets = google.sheets('v4')
         sheets.spreadsheets.values.get({
             auth: this.oauth2Client,
